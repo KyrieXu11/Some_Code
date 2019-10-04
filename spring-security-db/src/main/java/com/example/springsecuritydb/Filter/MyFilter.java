@@ -32,7 +32,7 @@ public class MyFilter implements FilterInvocationSecurityMetadataSource {
 //        可以考虑将Menu存到Redis里面去，因为Menu表基本不变
         List<Menu> allMenus = menuService.getAllMenus();
         for (Menu menu : allMenus) {
-//            将pattern和请求地址比较，如果匹配的话
+//            将pattern和请求地址比较，如果匹配的话，就返回对应pattern的角色
             if(antPathMatcher.match(menu.getPattern(),requestUrl)){
                 List<Role> roles=menu.getRoles();
                 String[] rolestr=new String[roles.size()];
