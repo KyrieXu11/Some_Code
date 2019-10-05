@@ -18,8 +18,8 @@ public class MyAcessDecisionManager implements AccessDecisionManager {
 //    第三个参数是访问路径需要的权限
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
-        for (ConfigAttribute Attribute : collection) {
-            if("ROLE_LOGIN".equals(Attribute.getAttribute())){
+        for (ConfigAttribute attribute : collection) {
+            if("ROLE_LOGIN".equals(attribute.getAttribute())){
                 if(authentication instanceof AnonymousAuthenticationToken){
                     throw new AccessDeniedException("非法请求");
                 }else {
@@ -28,21 +28,21 @@ public class MyAcessDecisionManager implements AccessDecisionManager {
             }
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             for (GrantedAuthority authority : authorities) {
-                if(authority.equals(Attribute.getAttribute())){
+                if(authority.getAuthority().equals(attribute.getAttribute())){
                     return;
                 }
             }
-            throw new AccessDeniedException("非法请求");
         }
+        throw new AccessDeniedException("非法请求");
     }
 
     @Override
     public boolean supports(ConfigAttribute configAttribute) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return false;
+        return true;
     }
 }

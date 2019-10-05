@@ -9,6 +9,7 @@ import java.util.List;
 public interface RoleMapper {
 
     @Results({
+            @Result(property = "id",column = "id"),
             @Result(property = "name",column = "name"),
             @Result(property = "nameZh",column = "nameZh")
     })
